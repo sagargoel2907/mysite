@@ -1,11 +1,12 @@
 from django.db import models
-from django.shortcuts import reverse
+from django.utils import timezone
 # Create your models here.
 
 
 class Question(models.Model):
 
     text = models.CharField(max_length=50)
+    pub_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name = ("Question")
@@ -13,9 +14,6 @@ class Question(models.Model):
 
     def __str__(self):
         return self.text
-
-    def get_absolute_url(self):
-        return reverse("_detail", kwargs={"pk": self.pk})
 
 
 class Choice(models.Model):
@@ -30,6 +28,3 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.text
-
-    def get_absolute_url(self):
-        return reverse("_detail", kwargs={"pk": self.pk})
