@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world. 74398c40 is the polls index.")
+    return HttpResponse("Answer to the Ultimate Question")
 
 
 def owner(request):
