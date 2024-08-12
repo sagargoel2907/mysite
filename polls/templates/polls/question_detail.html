@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+{{question.text}}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <label for="{{choice.id}}">{{choice.text}}</label>
+        <input type="radio" name="choice" value="{{choice.text}}" id={{choice.id}}>
+        <br>
+    {% endfor %}
+    <input type="submit" value="Vote">
+</form>
+{% endblock content %}
