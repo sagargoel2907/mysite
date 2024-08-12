@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{% endblock title %}
+{% block title %}Question {{question.id}}{% endblock title %}
 
 {% block content %}
 {{question.text}}
@@ -9,7 +9,7 @@
     {% csrf_token %}
     {% for choice in question.choice_set.all %}
         <label for="{{choice.id}}">{{choice.text}}</label>
-        <input type="radio" name="choice" value="{{choice.text}}" id={{choice.id}}>
+        <input type="radio" name="choice" value="{{choice.id}}" id={{choice.id}}>
         <br>
     {% endfor %}
     <input type="submit" value="Vote">

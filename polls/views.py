@@ -8,6 +8,7 @@ from django.views import View
 from django.shortcuts import redirect, reverse
 from django.utils.http import urlencode
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Choice
 
 
 class IndexView(ListView):
@@ -41,8 +42,13 @@ class ProtectedView(LoginRequiredMixin, View):
 
 
 def vote(request, pk):
-    response = "<pre>"
-    for k, v in request.POST.items():
-        response += f"{k}:{v}\n"
-    response += "</pre >"
-    return HttpResponse(response)
+    choice_id = request.POST.get("choice")
+    choice = Choice.objects.get(pk=choice_id)
+    choice.votes += 1
+    choice.save()
+    return redirect(to=reverse("result", args=(pk,)))
+
+
+class ResultView(DetailView):
+    model = Question
+    template_name = "polls/question_result.html"

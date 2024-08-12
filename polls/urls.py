@@ -9,5 +9,6 @@ urlpatterns = [
     path("protected", views.ProtectedView.as_view(), name='protected'),
     path("<int:pk>/", views.DetailsView.as_view(), name="detail"),
     path("<int:pk>/vote/", views.vote, name="vote"),
+    path("<int:pk>/result/", views.ResultView.as_view(), name="result")
 
 ]
