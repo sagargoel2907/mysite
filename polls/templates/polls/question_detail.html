@@ -5,7 +5,7 @@
 {% block content %}
 {{question.text}}
 
-<form action="" method="post">
+<form action="{% url "vote" question.id %}" method="post">
     {% csrf_token %}
     {% for choice in question.choice_set.all %}
         <label for="{{choice.id}}">{{choice.text}}</label>

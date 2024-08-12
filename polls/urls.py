@@ -7,5 +7,7 @@ urlpatterns = [
     path("manually-protected", views.ManuallyProtectedView.as_view(),
          name='man-protected'),
     path("protected", views.ProtectedView.as_view(), name='protected'),
-    path("<int:pk>/", views.DetailsView.as_view(), name="detail")
+    path("<int:pk>/", views.DetailsView.as_view(), name="detail"),
+    path("<int:pk>/vote/", views.vote, name="vote"),
+
 ]

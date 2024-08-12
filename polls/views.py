@@ -38,3 +38,11 @@ class ManuallyProtectedView(View):
 class ProtectedView(LoginRequiredMixin, View):
     def get(self, request):
         return HttpResponse("protected data")
+
+
+def vote(request, pk):
+    response = "<pre>"
+    for k, v in request.POST.items():
+        response += f"{k}:{v}\n"
+    response += "</pre >"
+    return HttpResponse(response)
