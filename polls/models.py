@@ -13,7 +13,7 @@ class Question(models.Model):
         verbose_name_plural = ("Questions")
 
     def __str__(self):
-        return self.text
+        return self.question_text
 
 
 class Choice(models.Model):
@@ -27,4 +27,4 @@ class Choice(models.Model):
         verbose_name_plural = ("Choices")
 
     def __str__(self):
-        return self.text
+        return self.choice_text
