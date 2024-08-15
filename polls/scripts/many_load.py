@@ -14,6 +14,6 @@ def run():
     for row in reader:
         q, *choices = row
         q = Question(question_text=q, pub_date=now)
+        q.save()
         for c in choices:
             Choice(choice_text=c, question=q).save()
-        q.save()
