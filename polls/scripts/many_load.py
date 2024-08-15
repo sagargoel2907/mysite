@@ -4,8 +4,8 @@ from django.utils import timezone
 
 
 def run():
-    Question.objects.delete()
-    Choice.objects.delete()
+    Question.objects.all().delete()
+    Choice.objects.all().delete()
 
     fhandler = open("polls/polls_data.csv")
     reader = csv.reader(fhandler)
