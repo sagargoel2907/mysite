@@ -12,8 +12,8 @@ def run():
     next(reader)
     now = timezone.now()
     for row in reader:
-        q, c1, c2 = row
+        q, *choices = row
         q = Question(question_text=q, pub_date=now)
+        for c in choices:
+            Choice(choice_text=c, question=q).save()
         q.save()
-        Choice(choice_text=c1, question=q).save()
-        Choice(choice_text=c2, question=q).save()
