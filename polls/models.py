@@ -5,7 +5,7 @@ from django.utils import timezone
 
 class Question(models.Model):
 
-    text = models.CharField(max_length=50)
+    question_text = models.CharField(max_length=50)
     pub_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -18,7 +18,7 @@ class Question(models.Model):
 
 class Choice(models.Model):
 
-    text = models.CharField(max_length=25)
+    choice_text = models.CharField(max_length=25)
     question = models.ForeignKey(to=Question, on_delete=models.CASCADE)
     votes = models.IntegerField(default=0)
 

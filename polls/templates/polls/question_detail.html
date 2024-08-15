@@ -3,7 +3,7 @@
 {% block title %}Question {{question.id}}{% endblock title %}
 
 {% block content %}
-{{question.text}}
+{{question.question_text}}
 
 <form action="{% url "vote" question.id %}" method="post">
     {% csrf_token %}

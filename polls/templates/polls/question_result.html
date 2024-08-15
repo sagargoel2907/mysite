@@ -3,7 +3,7 @@
 {% block title %}Question {{question.id}} Results{% endblock title %}
 
 {% block content %}
-{{question.text}}
+{{question.question_text}}
 <ul>
     {% for choice in question.choice_set.all %}
         <li>
