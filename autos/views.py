@@ -31,7 +31,7 @@ class MakeView(LoginRequiredMixin, View):
 
 class MakeCreate(LoginRequiredMixin, View):
     template = "autos/make_form.html"
-    success_url = reverse_lazy("autos:make_list")
+    success_url = reverse_lazy("autos:auto_list")
 
     def get(self, request):
         form = MakeForm()
@@ -51,7 +51,7 @@ class MakeCreate(LoginRequiredMixin, View):
 class MakeUpdate(LoginRequiredMixin, View):
     model = Make
     template = "autos/make_form.html"
-    success_url = reverse_lazy("autos:make_list")
+    success_url = reverse_lazy("autos:auto_list")
 
     def get(self, request, pk):
         m = get_object_or_404(self.model, pk=pk)
@@ -72,7 +72,7 @@ class MakeUpdate(LoginRequiredMixin, View):
 class MakeDelete(LoginRequiredMixin, View):
     model = Make
     template = "autos/make_confirm_delete.html"
-    success_url = reverse_lazy("autos:make_list")
+    success_url = reverse_lazy("autos:auto_list")
 
     def get(self, request, pk):
         make = get_object_or_404(self.model, pk=pk)
