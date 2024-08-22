@@ -7,7 +7,7 @@
     <p>Confirm deletion?</p>
     <form action="" method="post">
         {% csrf_token %}
-        <input type="submit" value="Delete">
+        <input type="submit" value="Yes, delete.">
         <input type="submit" value="Cancel" onclick="window.location='{% url "autos:auto_list" %}'; return false;">
     </form>
 {% endblock content %}
