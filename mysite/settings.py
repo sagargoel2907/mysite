@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "polls.apps.PollsConfig",
     "hello.apps.HelloConfig",
     "home.apps.HomeConfig",
-    "autos.apps.AutosConfig"
+    "autos.apps.AutosConfig",
+    "cats.apps.CatsConfig",
     # "django_extensions",
 ]
 

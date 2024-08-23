@@ -11,6 +11,8 @@ urlpatterns = [
     path("lookup/<int:pk>/delete/", views.MakeDelete.as_view(),
          name="make_delete"),
     path("main/create", views.AutoCreate.as_view(), name="auto_create"),
-    path("main/<int:pk>/update", views.AutoUpdate.as_view(), name="auto_update"),
-    path("main/<int:pk>/delete", views.AutoDelete.as_view(), name="auto_delete"),
+    path("main/<int:pk>/update", views.AutoUpdate.as_view(),
+         name="auto_update"),
+    path("main/<int:pk>/delete", views.AutoDelete.as_view(),
+         name="auto_delete"),
 ]
