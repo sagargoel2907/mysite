@@ -1,26 +1,15 @@
 {% extends "base_bootstrap.html" %}
 
-{% block title %}Login{% endblock title %}
-
 {% block content %}
+
 {% if form.errors %}
-<p>The username and password does not match</p>
+  <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-        <p>You are allowed to access this page</p>
-    {% else %}
-    <p>Please Login first before accessing the page</p>
-    {% endif %}
-{% endif %}
-
-<form method='post' action="{% url "login" %}">
-    {{form.as_p}}
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{next}}">
-    <input type="submit" value="Login"/>
-    <input type="hidden" value="{{next}}">
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" class="btn btn-primary" value="Login" />
+<input type="hidden" name="next" value="{{ next }}" />
 </form>
-
-{% endblock content %}
+{% endblock %}
