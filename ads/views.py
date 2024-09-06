@@ -25,6 +25,7 @@ class AdUpdateView(OwnerCreateView):
     model = Ad
     # template_name = 'ads/ad_update.html'
     # fields = ['title', 'price', 'text']
+    fields = '__all__'
     exclude = ['owner', 'created_at', 'updated_at']
 
 
