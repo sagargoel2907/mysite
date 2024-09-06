@@ -6,7 +6,7 @@
         <a class="navbar-brand" href="{% url 'ads:all' %}">{{ settings.APP_NAME }}</a>
         <ul class="navbar-nav">
             {% url 'ads:all' as x %}
-            <li {% if request.get_full_path==x %}class="active" {% endif %}>
+            <li {% if request.get_full_path == x %}class="active" {% endif %}>
                 <a class="nav-link" href="{% url 'ads:all' %}" role="button">Ads</a>
             </li>
         </ul>
