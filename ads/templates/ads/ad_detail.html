@@ -6,8 +6,8 @@
     {% if ad.owner == user %}
     <a href="{% url 'ads:ad_update' ad.id %}"><i class="fa fa-pencil"></i></a>
     <a href="{% url 'ads:ad_delete' ad.id %}"><i class="fa fa-trash"></i></a>
-    <img style="width:90%;margin-top: 50px; border:3px solid black;" src="{% url 'ads:ad_picture' ad.id %}">
     {% endif %}
+    <img style="width:90%;margin-top: 50px; border:3px solid black;" src="{% url 'ads:ad_picture' ad.id %}">
 </span>
 <h1>{{ ad.title }}</h1>
 <p>
