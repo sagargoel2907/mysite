@@ -85,7 +85,7 @@ class AdDeleteView(OwnerDeleteView):
 def stream_file(request, pk):
     ad = get_object_or_404(Ad, id=pk)
     response = HttpResponse()
-    response['Content-Type'] = ad.picture.content_type
+    response['Content-Type'] = 'image/jpeg'
     response['Content-Length'] = len(ad.picture)
     response.write(ad.picture)
     return response
