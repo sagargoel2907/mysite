@@ -109,7 +109,7 @@ class CommentCreateView(LoginRequiredMixin, View):
 
 class CommentDeleteView(OwnerDeleteView):
     model = Comment
-    template_name = 'comment_confirm_delete.html'
+    template_name = 'ads/comment_confirm_delete.html'
 
     def get_success_url(self):
         ad = self.object.ad
