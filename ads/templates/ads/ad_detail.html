@@ -20,12 +20,14 @@
 <h2>Add new comment</h2>
 {% if user %}
     <form action="{% url "ads:ad_comment_create" ad.id %}" method="post">
+        {% csrf_token %}
         {{commentForm | crispy}}
         <input type="submit" value="Add">
         <input type="submit" value="All Ads" onclick="window.location.href='{% url 'ads:all' %}';return false;">
     </form>
 {% endif %}
 <h2>Comments:</h2>
+{% if comments %}
 {% for comment in comments%}
     <p>
     {{comment.text}}
@@ -35,6 +37,9 @@
     {% endif %}
     </p>
 {% endfor %}
+{% else %}
+    <p>No comments yet</p>
+{% endif %}
 <p>
     <a href="{% url 'ads:all' %}">All ads</a>
 </p>
