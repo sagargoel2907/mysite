@@ -17,7 +17,7 @@
 <p>
     Price:{{ ad.price }}
 </p>
-<h2>Add new comment</h2>
+<h2 id="comment_form">Add new comment</h2>
 {% if user %}
     <form action="{% url "ads:ad_comment_create" ad.id %}" method="post">
         {% csrf_token %}
