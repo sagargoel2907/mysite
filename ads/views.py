@@ -105,8 +105,8 @@ class CommentCreateView(LoginRequiredMixin, View):
             text=request.POST['comment'], ad=ad, owner=request.user)
         comment.save()
         return redirect(reverse('ads:ad_detail', args=[pk]))
-    
-    def get(self, request):
+
+    def get(self, request, pk):
         return redirect(f'{reverse("ads:ad_detail", args=[pk])}#comment_form')
 
 
