@@ -1,5 +1,5 @@
 from django import forms
-from ads.models import Ad
+from ads.models import Ad, Comment
 from ads.humanize import naturalsize
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
@@ -35,3 +35,13 @@ class AdForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+
+# class CommentForm(forms.ModelForm):
+#     class Meta:
+#         model = Comment
+#         fields = ['text']
+
+
+class CommentForm(forms.Form):
+    comment = forms.CharField(required=True, max_length=500, min_length=3, strip=True)
