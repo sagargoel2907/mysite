@@ -14,7 +14,7 @@ class Ad(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               on_delete=models.CASCADE)
     comments = models.ManyToManyField(
-        to=settings.AUTH_USER_MODEL, related_name='comments_owned', through=Comment)
+        to=settings.AUTH_USER_MODEL, related_name='comments_owned', through='Comment')
     picture = models.BinaryField(null=True, blank=True, editable=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
