@@ -21,6 +21,7 @@ class AdListView(View):
         ads = Ad.objects.all()
         favorites = request.user.favorite_ads.objects.all() if request.user.is_authenticated else []
         ctx = {'ads': ads, 'favorites': favorites}
+        return render(request=request, template_name=self.template_name, context=ctx)
 
 
 class AdDetailView(View):
