@@ -60,7 +60,7 @@
         }
     }
     function favPost(url, id) {
-        fetch(url, [msthod: 'POST', data: ''])
+        fetch(url, {msthod: 'POST', data: ''})
             .then((response) => {
                 console.log('url', 'finished');
                 toggleInlineDisplay('favorite_star_' + id);
