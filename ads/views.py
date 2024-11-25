@@ -1,4 +1,6 @@
 from django.db.utils import IntegrityError
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, reverse
 from ads.owner import OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateView, OwnerDeleteView
 from ads.models import Ad, Comment, Fav
@@ -17,7 +19,7 @@ class AdListView(View):
 
     def get(self, request):
         ads = Ad.objects.all()
-        favorites = request.user.favorite_ads.objects.all() if request.user else []
+        favorites = request.user.favorite_ads.objects.all() if request.user.is_authenticated else []
         ctx = {'ads': ads, 'favorites': favorites}
 
 
@@ -124,7 +126,7 @@ class CommentDeleteView(OwnerDeleteView):
         ad = self.object.ad
         return reverse("ads:ad_detail", args=[ad.id])
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class AddFavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         ad = get_object_or_404(Ad, id=pk)
@@ -135,7 +137,7 @@ class AddFavoriteView(LoginRequiredMixin, View):
             pass
         return HttpResponse()
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class DeleteFavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         ad = get_object_or_404(Ad, id=pk)
