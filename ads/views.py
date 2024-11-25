@@ -19,7 +19,8 @@ class AdListView(View):
 
     def get(self, request):
         ads = Ad.objects.all()
-        favorites = request.user.favorite_ads.objects.all() if request.user.is_authenticated else []
+        rows = request.user.favorite_ads.values('id') if request.user.is_authenticated else []
+        favorites = [row['id'] for row in rows]
         ctx = {'ads': ads, 'favorites': favorites}
         return render(request=request, template_name=self.template_name, context=ctx)
 
