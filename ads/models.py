@@ -16,6 +16,8 @@ class Ad(models.Model):
     comments = models.ManyToManyField(
         to=settings.AUTH_USER_MODEL, related_name='comments_owned', through='Comment')
     picture = models.BinaryField(null=True, blank=True, editable=True)
+    favorites = models.ManyToManyField(
+        to=settings.AUTH_USER_MODEL, related_name='favorite_ads', through='Fav')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -34,6 +36,18 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.text if len(self.text)<15 else self.text[:10]+' ...'
+        return self.text if len(self.text) < 15 else self.text[:10]+' ...'
+
+
+class Fav(models.Model):
+    ad = models.ForeignKey(to=Ad, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together=['ad','user']
+    
+    def __str__(self):
+        return f'{user.username} likes {ad.title[:10]}'
 
     

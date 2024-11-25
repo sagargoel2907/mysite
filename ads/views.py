@@ -1,6 +1,7 @@
+from django.db.utils import IntegrityError
 from django.shortcuts import render, reverse
 from ads.owner import OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateView, OwnerDeleteView
-from ads.models import Ad, Comment
+from ads.models import Ad, Comment, Fav
 from django.views import View
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
@@ -10,9 +11,14 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-class AdListView(OwnerListView):
+class AdListView(View):
     model = Ad
-    # template_name = 'ads/ad_list.html'
+    template_name = 'ads/ad_list.html'
+
+    def get(self, request):
+        ads = Ad.objects.all()
+        favorites = request.user.favorite_ads.objects.all() if request.user else []
+        ctx = {'ads': ads, 'favorites': favorites}
 
 
 class AdDetailView(View):
@@ -117,3 +123,25 @@ class CommentDeleteView(OwnerDeleteView):
     def get_success_url(self):
         ad = self.object.ad
         return reverse("ads:ad_detail", args=[ad.id])
+
+
+class AddFavoriteView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        ad = get_object_or_404(Ad, id=pk)
+        try:
+            fav = Fav(ad=ad, user=request.user)
+            fav.save()
+        except IntegrityError:
+            pass
+        return HttpResponse()
+
+
+class DeleteFavoriteView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        ad = get_object_or_404(Ad, id=pk)
+        try:
+            fav = Fav.objects.get(ad=ad, user=request.user)
+            fav.delete()
+        except Fav.DoesNotExist:
+            pass
+        return HttpResponse()
