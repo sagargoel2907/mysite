@@ -48,6 +48,6 @@ class Fav(models.Model):
         unique_together=['ad','user']
     
     def __str__(self):
-        return f'{user.username} likes {ad.title[:10]}'
+        return f'{self.user.username} likes {self.ad.title[:10]}'
 
     

@@ -12,7 +12,7 @@
         <a href="{% url 'ads:ad_delete' ad.id %}">Delete</a>)
         {% endif %}
         {% if user.is_authenticated %}
-        <a href="#" onclick="favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }});return false;" {% if ad.id not in favorites %}style="display: none" {% endif %} id="favorite_star_{{ad.id}}">
+        <a href="#" onclick="favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }});return false;" {% if ad.id not in favorites %}style="display: none" {% endif %} id="unfavorite_star_{{ad.id}}">
             <span class="fa-stack" style="vertical-align: middle;">
                 <i class="fa fa-star fa-stack-1x" style="color: orange;"></i>
                 <i class="fa fa-star-o fa-stack-1x"></i>
@@ -60,7 +60,7 @@
         }
     }
     function favPost(url, id) {
-        fetch(url, {msthod: 'POST', data: ''})
+        fetch(url, {method: 'POST', data: ''})
             .then((response) => {
                 console.log('url', 'finished');
                 toggleInlineDisplay('favorite_star_' + id);
