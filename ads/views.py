@@ -1,4 +1,5 @@
 from django.db.utils import IntegrityError
+from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, reverse
@@ -18,10 +19,15 @@ class AdListView(View):
     template_name = 'ads/ad_list.html'
 
     def get(self, request):
-        ads = Ad.objects.all()
-        rows = request.user.favorite_ads.values('id') if request.user.is_authenticated else []
+        search_text = request.GET['search'] if 'search' in request.GET else ''
+        query = Q(title__icontains=search_text)
+        query.add(Q(text__icontains=search_text), Q.OR)
+        query.add(Q(tags__name__in=[search_text]), Q.OR)
+        ads = Ad.objects.filter(query).distinct().order_by('-updated_at')
+        rows = request.user.favorite_ads.values(
+            'id') if request.user.is_authenticated else []
         favorites = [row['id'] for row in rows]
-        ctx = {'ads': ads, 'favorites': favorites}
+        ctx = {'ads': ads, 'favorites': favorites, 'search_text': search_text}
         return render(request=request, template_name=self.template_name, context=ctx)
 
 
@@ -61,6 +67,7 @@ class AdCreateView(LoginRequiredMixin, View):
         ad = form.save(commit=False)
         ad.owner = request.user
         ad.save()
+        form.save_m2m()
         return redirect(self.success_url)
 
 
@@ -91,6 +98,7 @@ class AdUpdateView(LoginRequiredMixin, View):
 
         pic = form.save(commit=False)
         pic.save()
+        form.save_m2m()
 
         return redirect(self.success_url)
 
@@ -103,7 +111,7 @@ def stream_file(request, pk):
     ad = get_object_or_404(Ad, id=pk)
     response = HttpResponse()
     response['Content-Type'] = 'image/jpeg'
-    response['Content-Length'] = len(ad.picture)
+    response['Content-Length'] = len(ad.picture) if ad.picture else 0
     response.write(ad.picture)
     return response
 
@@ -128,6 +136,7 @@ class CommentDeleteView(OwnerDeleteView):
         ad = self.object.ad
         return reverse("ads:ad_detail", args=[ad.id])
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class AddFavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
@@ -138,6 +147,7 @@ class AddFavoriteView(LoginRequiredMixin, View):
         except IntegrityError:
             pass
         return HttpResponse()
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class DeleteFavoriteView(LoginRequiredMixin, View):
