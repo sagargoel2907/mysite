@@ -1,6 +1,14 @@
 {% extends "base_menu.html" %}
 {% block content %}
 <h1>Ads</h1>
+<form action="{% url 'ads:all' %}" style="position: absolute; right:10%; top: 10%;">
+    <input type="text" placeholder="Search something" name="search" value="{{search_text}}">
+    <input type="submit">
+    <a href="{% url 'ads:all' %}"">
+        <i class="fa fa-solid fa-rotate-right"></i>
+    </a>
+
+</form>
 <p>
     {% if ads %}
 <ul>
@@ -70,4 +78,8 @@
             })
     }
 </script>
+<head></head>
+<body>
+    hnj
+</body>
 {% endblock %}

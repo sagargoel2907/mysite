@@ -17,6 +17,14 @@
 <p>
     Price:{{ ad.price }}
 </p>
+<p>
+    {% if ad.tags.all %}
+        Tags:
+        {% for tag in ad.tags.all %}
+        <span style="border: 1px solid; background-color: lightgreen;">{{ tag }}</span>
+        {% endfor %}
+    {% endif %}
+</p>
 <h2 id="comment_form">Add new comment</h2>
 {% if user %}
     <form action="{% url "ads:ad_comment_create" ad.id %}" method="post">

@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
 from django.conf import settings
+from taggit.managers import TaggableManager
 
 
 class Ad(models.Model):
@@ -20,6 +21,7 @@ class Ad(models.Model):
         to=settings.AUTH_USER_MODEL, related_name='favorite_ads', through='Fav')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    tags = TaggableManager(blank=True)
 
     # Shows up in the admin list
     def __str__(self):
@@ -43,11 +45,9 @@ class Fav(models.Model):
     ad = models.ForeignKey(to=Ad, on_delete=models.CASCADE)
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+
     class Meta:
-        unique_together=['ad','user']
-    
+        unique_together = ['ad', 'user']
+
     def __str__(self):
         return f'{self.user.username} likes {self.ad.title[:10]}'
-
-    
