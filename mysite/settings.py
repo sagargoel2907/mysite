@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'taggit',
     'home.apps.HomeConfig',
     'ads.apps.AdsConfig',
+    'solo.apps.SoloConfig',
 
 ]
 
