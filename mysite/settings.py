@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'ads.apps.AdsConfig',
     'solo.apps.SoloConfig',
+    'users.apps.UsersConfig',
 
 ]
 
@@ -88,25 +89,25 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sagargoel$ads',
-        'USER': 'sagargoel',
-        'PASSWORD': 'sagar123',
-        'HOST': 'sagargoel.mysql.pythonanywhere-services.com',
-         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'sagargoel$ads',
+#         'USER': 'sagargoel',
+#         'PASSWORD': 'sagar123',
+#         'HOST': 'sagargoel.mysql.pythonanywhere-services.com',
+#          'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -207,3 +208,4 @@ if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
         }
     }
 '''
+AUTH_USER_MODEL = "users.CustomUser"
